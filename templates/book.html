@@ -1,0 +1,73 @@
+{% extends "layout.html" %}
+
+{% block title %}
+Searched
+{% endblock %}
+
+{% block main %}
+<h2>"{{book[2]}}" written by {{book[3]}}, published in {{book[4]}}, rated {{book[5]}}/5 -ISBN number: {{book[1]}}</h2>
+<div class="grid-container">
+  <!-- <p>Author: {{book[3]}}</p>
+  <p>Publication Year: {{book[4]}}</p>
+  <p>ISBN number: {{book[1]}}</p>
+  <p>Rating: {{book[5]}}</p> -->
+  <div class="grid-item">
+    <div class="table-responsive">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Ratings Count (goodreads)</th>
+            <th>Rating (goodreads):</th>
+          </tr>
+          <tr>
+            <td>{{bookreads.books[0]["ratings_count"]}}</td>
+            <td>{{bookreads.books[0]["average_rating"]}}</td>
+          </tr>
+        </thead>
+      </table>
+      </div>
+
+      <div class="table-responsive">
+        <table class="table">
+          <thead>
+            <tr>
+
+              <th>Review from:</th>
+              <th>Review text:</th>
+              <th>Rating:</th>
+            </tr>
+          </thead>
+            {%for bookreview in bookreviews%}
+            <tr>
+              <td>{{bookreview[1]}}</td>
+              <td>{{bookreview[2]}}</td>
+              <td>Rating: {{bookreview[3]}}</td>
+            </tr>
+            {%endfor%}
+
+
+
+
+        </table>
+      </div>
+
+
+  </div>
+  <div class="grid-item">
+    <form action="/book/{{book.book_id}}" method="post">
+      <textarea class="form-control" id="review" name="text" placeholder="Your Review.."></textarea>
+
+      <br><br>
+      <label for="rating">Stars:</label>
+      <select class="form-control" id="rating" name="rating">
+        {%for i in range(5)%}
+        <option value="{{i+1}}">{{i+1}}</option>
+        {%endfor%}
+      </select>
+      <br><br>
+      <input type="submit" class="btn-primary">
+    </form>
+
+  </div>
+</div>
+{% endblock %}
